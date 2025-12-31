@@ -9,6 +9,12 @@ This repository demonstrates **traffic distribution testing** on Azure Load Bala
 - Session persistence: None
 - Health probe: HTTP (Port 80)
 
+## Key Learnings
+
+Azure LB distributes TCP connections.
+Proper testing requires forcing new TCP connections.
+Session persistence = None works as expected.
+
 ## Test Script
 
 Run `Test-LB.ps1` from a client machine:
@@ -18,15 +24,7 @@ for ($i = 1; $i -le 20; $i++) {
     Invoke-WebRequest -Uri "http://<LB-IP>" -DisableKeepAlive -UseBasicParsing |
     Select-Object -ExpandProperty Content
 }
-
-## Expected output:
+ ## Expected output:
 
 Response from VM11
 Response from VM12
-
-## Key Learnings
-
-Azure LB distributes TCP connections.
-Proper testing requires forcing new TCP connections.
-
-Session persistence = None works as expected.
