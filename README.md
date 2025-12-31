@@ -18,3 +18,15 @@ for ($i = 1; $i -le 20; $i++) {
     Invoke-WebRequest -Uri "http://<LB-IP>" -DisableKeepAlive -UseBasicParsing |
     Select-Object -ExpandProperty Content
 }
+
+## Expected output:
+
+Response from VM11
+Response from VM12
+
+## Key Learnings
+
+Azure LB distributes TCP connections.
+Proper testing requires forcing new TCP connections.
+
+Session persistence = None works as expected.
